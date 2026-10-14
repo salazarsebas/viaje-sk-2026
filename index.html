@@ -1,0 +1,743 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Viaje · Sebas & Kevin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--fg:#0a0a0f;--mut:#6b6b76;--line:#ececf1;--card:#fff;--soft:#f6f6fa;--acc:#402AFF;--acc2:#8B86FF;--acc3:#A8A4FF;--ok:#10b981;--warn:#f59e0b;--glass:rgba(255,255,255,.72)}
+[data-theme=dark]{--bg:#0a0a0f;--fg:#f4f4f7;--mut:#9a9aa6;--line:#22222c;--card:#111118;--soft:#16161f;--glass:rgba(17,17,24,.72)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Geist,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px;position:relative}
+.rails{position:fixed;inset:0;pointer-events:none;z-index:0}.rails:before,.rails:after{content:"";position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.rails:before{left:max(12px,calc(50% - 540px))}.rails:after{right:max(12px,calc(50% - 540px))}
+nav{position:sticky;top:10px;z-index:20;margin:10px auto 0;max-width:1040px;width:calc(100% - 24px);display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 6px 24px rgba(10,10,15,.06)}
+.logo{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px}.logo i{width:22px;height:22px;background:var(--fg);clip-path:polygon(50% 0,64% 36%,100% 50%,64% 64%,50% 100%,36% 64%,0 50%,36% 36%)}
+.tabs{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tab{border:0;background:none;color:var(--mut);font:500 13px Geist,sans-serif;padding:8px 10px;border-radius:6px;cursor:pointer;white-space:nowrap}.tab.on{color:var(--fg);background:var(--soft)}
+.ico{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:6px;width:34px;height:34px;cursor:pointer;flex:none}
+.hero{position:relative;padding:56px 0 28px;overflow:hidden}
+.orb{position:absolute;right:-180px;top:-140px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#7a6bff 0%,#402AFF 45%,#2a14d9 75%);filter:saturate(1.1);z-index:-1;opacity:.95}
+.orb:after{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-radial-gradient(circle at 10% 60%,transparent 0 60px,rgba(255,255,255,.08) 61px 62px)}
+.hero h1{font-weight:500;font-size:clamp(30px,6vw,52px);line-height:1.05;letter-spacing:-.03em;margin:0 0 14px;max-width:640px}
+.hero p{color:var(--mut);font-weight:300;font-size:17px;max-width:520px;margin:0 0 22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:6px;font:500 14px Geist,sans-serif;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--fg);text-decoration:none}
+.btn.p{background:var(--acc);border-color:var(--acc);color:#fff}.btn.p:hover{filter:brightness(1.1)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:10px;margin-top:28px;background:var(--card)}
+.stats div{padding:14px 16px;border-left:1px solid var(--line)}.stats div:first-child{border:0}.stats b{display:block;font-size:22px;font-weight:500;letter-spacing:-.02em}.stats span{font-size:12px;color:var(--mut)}
+.strip{position:sticky;top:70px;z-index:15;background:var(--bg);box-shadow:0 -90px 0 var(--bg);padding:10px 0 8px;border-bottom:1px solid var(--line)}
+.dates{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px;scrollbar-width:none}.dates::-webkit-scrollbar{display:none}
+.dt{flex:none;scroll-snap-align:center;width:52px;padding:7px 0;border:1px solid var(--line);border-radius:8px;text-align:center;cursor:pointer;background:var(--card);color:var(--fg);font-family:Geist,sans-serif}
+.dt small{display:block;font-size:10px;color:var(--mut);text-transform:uppercase}.dt b{font-size:17px;font-weight:500}.dt em{display:block;font-style:normal;font-size:12px;line-height:1}
+.dt.on{background:var(--acc);border-color:var(--acc);color:#fff}.dt.on small{color:#dcd9ff}.dt.today{box-shadow:0 0 0 2px var(--acc3)}
+.chips{display:flex;gap:6px;overflow-x:auto;margin-top:8px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--mut);font:500 12px Geist,sans-serif;padding:6px 10px;border-radius:999px;cursor:pointer}.chip.on{color:var(--acc);border-color:var(--acc3);background:color-mix(in srgb,var(--acc) 8%,var(--card))}
+.days{display:grid;gap:14px;padding:18px 0 40px}
+.day{position:relative;border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden;scroll-margin-top:160px;animation:up .4s ease both}
+@keyframes up{from{opacity:0;transform:translateY(8px)}}
+.day.hl{box-shadow:0 0 0 2px var(--acc),0 10px 30px rgba(64,42,255,.15)}
+.dh{display:flex;gap:14px;align-items:center;padding:16px 16px 12px;border-bottom:1px solid var(--line)}
+.num{flex:none;width:52px;height:52px;border-radius:10px;background:linear-gradient(140deg,var(--acc2),var(--acc));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.num b{font-size:20px;font-weight:500}.num small{font-size:10px;text-transform:uppercase;opacity:.85;margin-top:2px}
+.dh h3{margin:0;font-size:17px;font-weight:500;letter-spacing:-.01em}.meta{font-size:12.5px;color:var(--mut);margin-top:3px;font-family:"Geist Mono",monospace}
+.tag{margin-left:auto;align-self:flex-start;font-size:11px;font-weight:500;padding:3px 8px;border-radius:999px;background:var(--soft);color:var(--mut);white-space:nowrap}
+.tag.futbol{background:#e8fbf3;color:#047857}.tag.fiesta{background:#fff4e5;color:#b45309}.tag.evento{background:#eeecff;color:var(--acc)}.tag.trip{background:#eef6ff;color:#1d4ed8}
+[data-theme=dark] .tag{background:#1d1d28}
+.tl{display:grid;grid-template-columns:repeat(3,1fr)}.tl div{padding:12px 16px;border-right:1px solid var(--line)}.tl div:last-child{border:0}
+.tl small,.kv small{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin-bottom:3px}.tl p{margin:0;font-size:14px;line-height:1.45}
+.kv{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);background:var(--soft)}.kv div{padding:10px 16px;font-size:13.5px}
+.tip{margin:0;padding:10px 16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--mut)}.tip b{color:var(--fg);font-weight:500}
+.lk{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 14px}.lk a{font-size:12.5px;color:var(--acc);text-decoration:none;border:1px solid var(--line);padding:5px 9px;border-radius:6px}
+[data-theme=dark] .lk a{color:var(--acc3)}
+.pane{display:none;padding:22px 0 50px}.pane.on{display:block}
+.pane h2{font-weight:500;font-size:28px;letter-spacing:-.02em;margin:0 0 6px}.lead{color:var(--mut);margin:0 0 18px;font-weight:300}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.card{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:18px}
+.card h4{margin:0 0 8px;font-weight:500;font-size:16px}.card p,.card li{font-size:14px;line-height:1.5;color:var(--fg)}.card ul{padding-left:18px;margin:6px 0}.card .big{font-size:30px;font-weight:500;letter-spacing:-.03em;color:var(--acc)}
+table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}th{font-weight:500;color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.05em}td:nth-child(2){font-family:"Geist Mono",monospace;white-space:nowrap}tr.tot td{font-weight:600;border-top:2px solid var(--fg)}
+.est{font-size:11px;color:var(--warn);font-weight:500}
+.chk{list-style:none;padding:0}.chk li{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}.chk input{accent-color:var(--acc);width:18px;height:18px;flex:none}
+.src{font-size:12px;color:var(--mut);margin-top:10px}.src a{color:var(--mut)}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--mut);font-size:12.5px}
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:30;box-shadow:0 10px 30px rgba(64,42,255,.35)}
+@media(max-width:720px){.wrap{padding:0 16px}.hero{padding:34px 0 18px}.orb{width:340px;height:340px;right:-170px;top:-120px}
+.stats{grid-template-columns:repeat(2,1fr)}.stats div:nth-child(3){border-left:0;border-top:1px solid var(--line)}.stats div:nth-child(4){border-top:1px solid var(--line)}
+.tl,.kv{grid-template-columns:1fr}.tl div{border-right:0;border-bottom:1px solid var(--line)}.tl div:last-child{border:0}.kv div{padding:8px 16px}
+.grid{grid-template-columns:1fr}.orb{opacity:.18!important;width:300px;height:300px;right:-120px;top:-60px}.kv{grid-template-columns:1fr 1fr}.kv div:first-child{grid-column:1/-1}#btabs{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));margin:0;justify-content:space-around;background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 8px 30px rgba(10,10,15,.12)}#btabs .tab{font-size:12px;padding:8px 6px}nav #theme{margin-left:auto}.fab{bottom:calc(76px + env(safe-area-inset-bottom))}.days{padding-bottom:110px}footer{padding-bottom:100px}.strip{top:66px}.hero .btn{width:100%}.hero .row{flex-direction:column}}
+.row{display:flex;gap:10px}#btabs{display:none}@media(max-width:720px){nav .tabs{display:none}#btabs{display:flex;z-index:40}}
+</style></head><body>
+<div class="rails"></div>
+<nav><div class="logo"><i></i><span>Sebas & Kevin</span></div>
+<div class="tabs" id="tabs"></div><button class="ico" id="theme" aria-label="Tema">◐</button></nav>
+<div class="wrap">
+<section class="pane on" id="p-dias" style="padding:0">
+ <div class="hero"><div class="orb"></div>
+  <h1 style="position:relative">Europa en 37 días. Barato y bien vivido.</h1>
+  <p>Países Bajos → Lisboa (Meridian) → Barcelona → Italia y Suiza → Lituania y Letonia → Londres → Madrid. 14 oct – 19 nov 2026.</p>
+  <div class="row"><button class="btn p" id="hoyBtn">Ir a hoy →</button><button class="btn" onclick="show('presupuesto')">Ver presupuesto</button></div>
+  <div class="stats"><div><b>37</b><span>días</span></div><div><b>9</b><span>países</span></div><div><b>≈2.750 €</b><span>base pp (est.)</span></div><div><b>3 nov</b><span>Barça vs Villa</span></div></div>
+ </div>
+ <div class="strip"><div class="dates" id="dates"></div><div class="chips" id="chips"></div></div>
+ <div class="days" id="days"></div>
+</section>
+<section class="pane" id="p-presupuesto"><h2>Presupuesto</h2><p class="lead">Por persona, sin contar los vuelos ya comprados. Precios revisados el 14-oct-2026. <span class="est">EST.</span> = estimado.</p>
+<div class="card"><table><tr><th>Rubro</th><th>Monto</th><th></th></tr>
+<tr><td>Excursiones NL (Bruselas, Colonia, Amberes, Groepsretour)</td><td>~190 €</td><td><span class="est">EST.</span> parcial</td></tr>
+<tr><td>AMS→LIS + ½ maleta</td><td>~105 €</td><td>desde 85 €</td></tr>
+<tr><td>Lisboa: transporte, Sintra y Halloween</td><td>~60 €</td><td><span class="est">EST.</span></td></tr>
+<tr><td>Vuelos post-Lisboa + bus a Riga</td><td>~116 €</td><td>precios "desde"</td></tr>
+<tr><td>Maleta facturada en vuelos low cost (½)</td><td>~90 €</td><td><span class="est">EST.</span></td></tr>
+<tr><td>Hospedaje 2–18 nov (16 noches)</td><td>~480 €</td><td><span class="est">EST.</span></td></tr>
+<tr><td>Comida (36 días) + 2 comidas especiales</td><td>~1.010 €</td><td><span class="est">EST.</span></td></tr>
+<tr><td>Fiesta y salidas</td><td>~375 €</td><td><span class="est">EST.</span></td></tr>
+<tr><td>Suiza (Lugano + Centovalli)</td><td>~77 €</td><td>"desde"</td></tr>
+<tr><td>Imprevistos y lavandería (10 %)</td><td>~250 €</td><td><span class="est">EST.</span></td></tr>
+<tr class="tot"><td>Total base</td><td>≈ 2.750 €</td><td></td></tr></table></div>
+<div class="grid" style="margin-top:14px"><div class="card"><h4>Extras opcionales</h4><ul><li>Barça–Aston Villa: +250–300 €</li><li>París PSG–Barça: +~600 € <span class="est">EST.</span></li><li>Breakpoint Developer: +$250 + Londres ~150 € <span class="est">EST.</span></li></ul></div>
+<div class="card"><h4>Cómo ahorrar</h4><ul><li>Una sola maleta facturada compartida, comprada siempre online</li><li>Supermercado para el desayuno, prato do dia para el almuerzo</li><li>Comprar los trenes Saver con días de anticipación</li></ul></div></div></section>
+<section class="pane" id="p-futbol"><h2>Fútbol</h2><p class="lead">Partidos dentro de las fechas del viaje, con precios del 14-oct-2026.</p>
+<div class="grid"><div class="card"><h4>🔵🔴 Sebas · Barça vs Aston Villa</h4><p>Mar 3 nov · 21:00 · Spotify Camp Nou (Champions)</p><div class="big">≈ 320–410 €</div><ul><li>Entrada: paquete 300–350 €, reventa ~244–369 €</li><li>Vuelo LIS–BCN desde 27,10 €</li><li>1–2 noches de hostal ~40–80 € <span class="est">EST.</span></li></ul><p>Revisar primero la taquilla oficial en fcbarcelona.com.</p></div>
+<div class="card"><h4>PSG vs Barça (opcional)</h4><p>Mar 20 oct · 21:00 · Parc des Princes, París</p><div class="big">≈ 560–620 €</div><ul><li>Reventa desde 449 €</li><li>Eurostar desde 35 € por trayecto</li><li>Hay que dormir en París <span class="est">EST.</span></li></ul><p>No recomendado por precio.</p></div>
+<div class="card"><h4>⚪ Kevin · Real Madrid</h4><p><b>No hay partido en el Bernabéu entre el 2 y el 19 nov.</b> Fuera de casa juega en Racing (1 nov), AEK Atenas (4 nov) y Valencia (7 nov). En casa: Celta (22 nov) y PSV (24 nov), ambos después del vuelo.</p><ul><li>Opción A: Valencia–Madrid el 7 nov en Mestalla (precio no verificado)</li><li>Opción B: Tour del Bernabéu el 18 nov (~35 € <span class="est">EST.</span>)</li></ul></div>
+<div class="card"><h4>◎ Solana Breakpoint</h4><p>15–17 nov · Olympia London</p><ul><li>GA $550 · Developer $250 · Student $100 (por solicitud)</li><li>No encontré entrada gratis; pedir códigos a sponsors en Meridian</li><li>Hace falta la ETA UK (verificar)</li></ul></div></div>
+<p class="src">Fuentes: <a href="https://www.fcbarcelona.com/en/football/first-team/schedule">fcbarcelona.com</a> · <a href="https://footballfinder.app/teams/real-madrid">footballfinder</a> · <a href="https://tickets-football.com/matches/paris-saint-germain-barcelona">tickets-football</a> · <a href="https://solana.com/breakpoint/registration">solana.com</a></p></section>
+<section class="pane" id="p-checklist"><h2>Checklist y migración</h2><p class="lead">Las marcas se guardan en el teléfono.</p>
+<div class="grid"><div class="card"><h4>Migración Schengen</h4><ul class="chk" data-k="mig"></ul></div><div class="card"><h4>Lavandería</h4><ul><li>NL: buscar "wasserette"; PT: "lavandaria self-service" (4–8 € por lavada <span class="est">EST.</span>)</li><li>Revisar si el Airbnb de Lisboa tiene lavadora</li><li>Hostales del Báltico: lavadora (3–5 € <span class="est">EST.</span>)</li><li>Ropa de secado rápido + bolsas de compresión</li></ul></div></div></section>
+<section class="pane" id="p-equipaje"><h2>Equipaje</h2><p class="lead">Reglas por vuelo. Las maletas se compran online, nunca en el aeropuerto.</p>
+<div class="card"><table><tr><th>Vuelo</th><th>Incluye</th><th>Extra</th></tr>
+<tr><td>KLM MAD–AMS</td><td>12 kg de mano</td><td>23 kg: ~25–75 €</td></tr>
+<tr><td>Transavia AMS–LIS</td><td>Artículo personal</td><td>se paga</td></tr>
+<tr><td>Ryanair / Vueling / Wizz</td><td>Artículo personal</td><td>se paga en cada vuelo</td></tr>
+<tr><td>FlixBus VNO–RIX</td><td>7 kg + 20 kg</td><td>gratis</td></tr>
+<tr><td>Iberojet Basic MAD–SJO</td><td>10 kg (mano + personal)</td><td>23 kg: ~90–140 €</td></tr></table>
+<p class="src">Fuentes: <a href="https://www.iberojet.com/en/allowed-baggage">iberojet.com</a> · <a href="https://www.klm.com/information/baggage/extra-oversized-overweight-baggage">klm.com</a> · <a href="https://lithuaniatravelguide.com/vilnius-to-riga/">lithuaniatravelguide</a></p></div></section>
+<footer>Precios revisados el 14-oct-2026 · EST. = estimado · Los datos de cada día están en <code>DAYS</code> (days.json).</footer>
+</div>
+<div class="tabs" id="btabs"></div><button class="btn p fab" id="fab">Hoy</button>
+<script id="days-data" type="application/json">[
+ {
+  "date": "2026-10-14",
+  "city": "Hoofddorp",
+  "flag": "🇳🇱",
+  "title": "Llegada a Países Bajos",
+  "morning": "Vuelo CR → Madrid",
+  "afternoon": "Conexión KLM MAD → AMS",
+  "night": "Check-in en Ozo Hotels Hoofddorp; descanso",
+  "transport": "KLM MAD–AMS (0 maletas facturadas, 12 kg de mano)",
+  "eat": "Supermercado Albert Heijn",
+  "cost": "~10 € (est.)",
+  "tip": "Confirmar en la recepción si el desayuno está incluido.",
+  "links": [],
+  "tag": "viaje"
+ },
+ {
+  "date": "2026-10-15",
+  "city": "Ámsterdam",
+  "flag": "🇳🇱",
+  "title": "Ámsterdam centro",
+  "morning": "Dam y canales",
+  "afternoon": "Jordaan + Foodhallen",
+  "night": "Leidseplein / Rembrandtplein",
+  "transport": "NS Groepsretour 38,50 € en total (2–3 pers.) · OVpay",
+  "eat": "Foodhallen, FEBO, kapsalon",
+  "cost": "~25–35 € (est.)",
+  "tip": "OVpay: entrar y salir con tarjeta contactless, cada uno la suya.",
+  "links": [
+   "NS Groepsretour|https://www.ns.nl/en/tickets/off-peak-group-ticket"
+  ],
+  "tag": ""
+ },
+ {
+  "date": "2026-10-16",
+  "city": "Bruselas + Gante",
+  "flag": "🇧🇪",
+  "title": "Día en Bélgica",
+  "morning": "Eurocity Direct a Bruselas (~2h08): Grand-Place",
+  "afternoon": "Gante (casco histórico)",
+  "night": "Delirium Café y regreso",
+  "transport": "Eurocity Direct Saver desde 25 € ida",
+  "eat": "Gofres y frites",
+  "cost": "~80 € (est.)",
+  "tip": "Los Saver son solo para el tren reservado: comprar con días de anticipación.",
+  "links": [
+   "Eurocity Direct|https://www.nsinternational.com/en/trains/eurocity-direct"
+  ],
+  "tag": "trip"
+ },
+ {
+  "date": "2026-10-17",
+  "city": "Colonia + Düsseldorf",
+  "flag": "🇩🇪",
+  "title": "Día en Alemania",
+  "morning": "ICE a Colonia: Catedral",
+  "afternoon": "Düsseldorf",
+  "night": "Altstadt, 'la barra más larga del mundo'",
+  "transport": "ICE desde 20 € ida · DB Saver desde 24,99 €",
+  "eat": "Currywurst, Kölsch",
+  "cost": "~70 € (est.)",
+  "tip": "Comprar el ICE con anticipación.",
+  "links": [
+   "NS Ams–Colonia|https://www.nsinternational.com/en/train/amsterdam-cologne"
+  ],
+  "tag": "trip"
+ },
+ {
+  "date": "2026-10-18",
+  "city": "Róterdam + Delft",
+  "flag": "🇳🇱",
+  "title": "Róterdam + Delft",
+  "morning": "Markthal y Cube Houses",
+  "afternoon": "Delft",
+  "night": "Vuelta temprano",
+  "transport": "NS Groepsretour 38,50 € en total",
+  "eat": "Markthal",
+  "cost": "~30 € (est.)",
+  "tip": "Domingo: buen día para usar el Groepsretour.",
+  "links": [],
+  "tag": ""
+ },
+ {
+  "date": "2026-10-19",
+  "city": "Amberes",
+  "flag": "🇧🇪",
+  "title": "Amberes o Brujas",
+  "morning": "Estación Central de Amberes",
+  "afternoon": "Casco antiguo",
+  "night": "Regreso",
+  "transport": "Eurocity Direct (est. 25–35 €)",
+  "eat": "Frituur",
+  "cost": "~70 € (est.)",
+  "tip": "",
+  "links": [],
+  "tag": ""
+ },
+ {
+  "date": "2026-10-20",
+  "city": "París (opcional)",
+  "flag": "🇫🇷",
+  "title": "PSG vs Barça (opcional)",
+  "morning": "Eurostar a París (desde 35 €, ~3h25)",
+  "afternoon": "Torre Eiffel por fuera",
+  "night": "PSG–Barça 21:00, Parc des Princes",
+  "transport": "Eurostar desde 35 € por trayecto; hay que dormir en París",
+  "eat": "Boulangerie",
+  "cost": "~600 € en total (est.); reventa desde 449 €",
+  "tip": "Caro, no recomendado. Alternativa: La Haya + verlo en un bar.",
+  "links": [
+   "Precios PSG–Barça|https://tickets-football.com/matches/paris-saint-germain-barcelona"
+  ],
+  "tag": "futbol"
+ },
+ {
+  "date": "2026-10-21",
+  "city": "Haarlem",
+  "flag": "🇳🇱",
+  "title": "Lavandería + Haarlem",
+  "morning": "Lavandería (wasserette)",
+  "afternoon": "Haarlem / Zaanse Schans",
+  "night": "Empacar",
+  "transport": "NS",
+  "eat": "Albert Heijn",
+  "cost": "~25 € (est.)",
+  "tip": "Se preparan para el vuelo de mañana.",
+  "links": [],
+  "tag": ""
+ },
+ {
+  "date": "2026-10-22",
+  "city": "Lisboa",
+  "flag": "🇵🇹",
+  "title": "Vuelo a Lisboa",
+  "morning": "Transavia AMS → LIS directo",
+  "afternoon": "Check-in en el Airbnb; Pingo Doce",
+  "night": "Paseo tranquilo",
+  "transport": "Transavia desde 85 € + ½ maleta (est. 25–60 €)",
+  "eat": "Bifana (3–4 €, est.)",
+  "cost": "~110 € (est.)",
+  "tip": "Transavia incluye solo un artículo personal: comprar la maleta online.",
+  "links": [
+   "Transavia AMS–LIS|https://www.transavia.com/airports/en-uk/amsterdam-airport-schiphol/amsterdam-lisbon"
+  ],
+  "tag": "viaje"
+ },
+ {
+  "date": "2026-10-23",
+  "city": "Lisboa",
+  "flag": "🇵🇹",
+  "title": "Alfama y Bairro Alto",
+  "morning": "Alfama, Miradouro de Santa Luzia",
+  "afternoon": "Graça",
+  "night": "Bairro Alto",
+  "transport": "Metro / a pie",
+  "eat": "Prato do dia (8–12 €, est.)",
+  "cost": "~30 € (est.)",
+  "tip": "",
+  "links": [],
+  "tag": ""
+ },
+ {
+  "date": "2026-10-24",
+  "city": "Sintra + Cascais",
+  "flag": "🇵🇹",
+  "title": "Excursión: Sintra y Cascais",
+  "morning": "Tren desde Rossio a Sintra (2,55 €)",
+  "afternoon": "Quinta da Regaleira, Pena",
+  "night": "Cascais → Cais do Sodré (2,55 €)",
+  "transport": "CP 2,55 € por trayecto · Zapping 2,05 €",
+  "eat": "Picnic",
+  "cost": "~25 € + entradas (est.)",
+  "tip": "",
+  "links": [
+   "Tarifas CP|https://cp.pt/info/documents/d/cp/precos-comboios-urbanos-lisboa"
+  ],
+  "tag": "trip"
+ },
+ {
+  "date": "2026-10-25",
+  "city": "Lisboa",
+  "flag": "🇵🇹",
+  "title": "HackMeridian · Día 1",
+  "morning": "HackMeridian",
+  "afternoon": "HackMeridian",
+  "night": "Networking",
+  "transport": "",
+  "eat": "Lo del evento",
+  "cost": "~15 € (est.)",
+  "tip": "",
+  "links": [],
+  "tag": "evento"
+ },
+ {
+  "date": "2026-10-26",
+  "city": "Lisboa",
+  "flag": "🇵🇹",
+  "title": "HackMeridian · Día 2",
+  "morning": "HackMeridian",
+  "afternoon": "Entrega del proyecto",
+  "night": "Celebrar",
+  "transport": "",
+  "eat": "",
+  "cost": "~20 € (est.)",
+  "tip": "",
+  "links": [],
+  "tag": "evento"
+ },
+ {
+  "date": "2026-10-27",
+  "city": "Lisboa",
+  "flag": "🇵🇹",
+  "title": "Badge + Belém",
+  "morning": "Retiro del badge",
+  "afternoon": "Belém: Torre, Pastéis",
+  "night": "Descanso",
+  "transport": "Tranvía 15E",
+  "eat": "Pastéis de Belém",
+  "cost": "~20 € (est.)",
+  "tip": "",
+  "links": [],
+  "tag": "evento"
+ },
+ {
+  "date": "2026-10-28",
+  "city": "Lisboa",
+  "flag": "🇵🇹",
+  "title": "Meridian · Día 1",
+  "morning": "Meridian",
+  "afternoon": "Meridian",
+  "night": "Side events de sponsors (gratis)",
+  "transport": "",
+  "eat": "",
+  "cost": "~15 € (est.)",
+  "tip": "Pedir códigos para Breakpoint.",
+  "links": [],
+  "tag": "evento"
+ },
+ {
+  "date": "2026-10-29",
+  "city": "Lisboa",
+  "flag": "🇵🇹",
+  "title": "Meridian · Día 2",
+  "morning": "Meridian",
+  "afternoon": "Meridian",
+  "night": "Afterparty",
+  "transport": "",
+  "eat": "Comida especial (50–60 € pp, est.)",
+  "cost": "~70 € (est.)",
+  "tip": "Opción: marisquería tipo Cervejaria Ramiro.",
+  "links": [],
+  "tag": "evento"
+ },
+ {
+  "date": "2026-10-30",
+  "city": "Lisboa",
+  "flag": "🇵🇹",
+  "title": "LX Factory + Bairroween",
+  "morning": "LX Factory",
+  "afternoon": "Time Out Market; compras para el disfraz",
+  "night": "Bairroween (gratis)",
+  "transport": "",
+  "eat": "Time Out Market",
+  "cost": "~30 € (est.)",
+  "tip": "Disfraz en Primark, Ale-Hop o bazares de Martim Moniz (5–20 €, est.).",
+  "links": [
+   "Bairroween|https://www.eventbrite.com/e/bairroween-tequila-x-miami-tickets-2003069921055"
+  ],
+  "tag": ""
+ },
+ {
+  "date": "2026-10-31",
+  "city": "Lisboa",
+  "flag": "🇵🇹",
+  "title": "🎃 HALLOWEEN",
+  "morning": "Descanso",
+  "afternoon": "Disfraz: Casa de Papel, zombie o esqueletos",
+  "night": "Bairroween → Pub Crawl (Camões, 00:00) → Pink Street → Lux Frágil (23–06h)",
+  "transport": "Metro / a pie",
+  "eat": "",
+  "cost": "~50 € (est.)",
+  "tip": "Plan B: UTOPIA Halloween en KAIS desde las 21:00.",
+  "links": [
+   "Lux Frágil 31 oct|https://ma.to/event/ok-eg-nidia-berberan-31-oct-2026",
+   "Pub Crawl|https://www.timeout.pt/lisboa/pt/noite/halloween-haunts-lisbon-pub-crawl-experience",
+   "UTOPIA|https://utopiafamily.co/halloween-lisboa-2026/"
+  ],
+  "tag": "fiesta"
+ },
+ {
+  "date": "2026-11-01",
+  "city": "Lisboa",
+  "flag": "🇵🇹",
+  "title": "Recuperación",
+  "morning": "Descanso",
+  "afternoon": "Mirador de Senhora do Monte",
+  "night": "Barça–Alavés en un bar (la fecha 31 oct / 1 nov no está confirmada)",
+  "transport": "",
+  "eat": "Frango piri-piri",
+  "cost": "~20 € (est.)",
+  "tip": "Hacer la maleta.",
+  "links": [],
+  "tag": ""
+ },
+ {
+  "date": "2026-11-02",
+  "city": "Barcelona",
+  "flag": "🇪🇸",
+  "title": "Vuelo a Barcelona",
+  "morning": "Vuelo LIS → BCN",
+  "afternoon": "Barceloneta",
+  "night": "Gòtic",
+  "transport": "Ryanair noviembre desde 27,10 €",
+  "eat": "Bocadillos, menú del día",
+  "cost": "~80 € (est.)",
+  "tip": "",
+  "links": [
+   "Ryanair LIS–BCN|https://www.ryanair.com/gb/en/flights/flights-from-lisbon-to-barcelona"
+  ],
+  "tag": "viaje"
+ },
+ {
+  "date": "2026-11-03",
+  "city": "Barcelona",
+  "flag": "🇪🇸",
+  "title": "⚽ Barça vs Aston Villa",
+  "morning": "Sagrada Família por fuera",
+  "afternoon": "Park Güell / Montjuïc",
+  "night": "Champions 21:00, Spotify Camp Nou",
+  "transport": "Metro",
+  "eat": "Tapas",
+  "cost": "Entrada ~244–369 € en reventa (Sebas)",
+  "tip": "Revisar primero la taquilla oficial en fcbarcelona.com.",
+  "links": [
+   "Calendario Barça|https://www.fcbarcelona.com/en/football/first-team/schedule"
+  ],
+  "tag": "futbol"
+ },
+ {
+  "date": "2026-11-04",
+  "city": "Milán",
+  "flag": "🇮🇹",
+  "title": "Vuelo a Milán",
+  "morning": "Vuelo BCN → MIL",
+  "afternoon": "Duomo",
+  "night": "Navigli + aperitivo (10–12 €, est.)",
+  "transport": "Vueling desde 16 € / eDreams vio 18 €",
+  "eat": "Aperitivo con buffet",
+  "cost": "~70 € (est.)",
+  "tip": "",
+  "links": [
+   "Vueling BCN–MIL|https://www.vueling.com/en/flights-from-barcelona-to-milan"
+  ],
+  "tag": "viaje"
+ },
+ {
+  "date": "2026-11-05",
+  "city": "Como + Lugano",
+  "flag": "🇨🇭",
+  "title": "Suiza 1: Como + Lugano",
+  "morning": "Tren a Como, el lago",
+  "afternoon": "Como → Lugano (34–44 min, desde ~15 €)",
+  "night": "Regreso a dormir en Milán",
+  "transport": "Trenord + TILO",
+  "eat": "Picnic (Suiza es cara)",
+  "cost": "~60 € (est.)",
+  "tip": "Dormir en Italia: Ostello Bello Como cuesta desde 61 €, Milán sale más barato.",
+  "links": [
+   "Como–Lugano|https://www.thetrainline.com/en/train-times/como-to-lugano"
+  ],
+  "tag": "trip"
+ },
+ {
+  "date": "2026-11-06",
+  "city": "Milán",
+  "flag": "🇮🇹",
+  "title": "Milán libre",
+  "morning": "Castello Sforzesco",
+  "afternoon": "Brera",
+  "night": "Fiesta en Corso Como",
+  "transport": "Metro",
+  "eat": "Pizza al taglio",
+  "cost": "~40 € (est.)",
+  "tip": "",
+  "links": [],
+  "tag": ""
+ },
+ {
+  "date": "2026-11-07",
+  "city": "Centovalli",
+  "flag": "🇨🇭",
+  "title": "Suiza 2: Centovalli",
+  "morning": "Milán → Domodossola (~1h30, est.)",
+  "afternoon": "Tren Vigezzina-Centovalli → Locarno (~2 h)",
+  "night": "Regreso a Milán",
+  "transport": "Tourist ticket 41 € + 4 € de reserva + 1,50 € panorámico",
+  "eat": "Picnic",
+  "cost": "~70 € (est.)",
+  "tip": "Alternativa: Saver Day Pass SBB desde CHF 52 (Lucerna).",
+  "links": [
+   "Centovalli|https://www.vigezzinacentovalli.com/en/special-offers/tourist-ticket/",
+   "Saver Day Pass|https://www.sbb.ch/en/offers/saver-day-pass"
+  ],
+  "tag": "trip"
+ },
+ {
+  "date": "2026-11-08",
+  "city": "Milán / Venecia",
+  "flag": "🇮🇹",
+  "title": "Venecia (opcional)",
+  "morning": "Frecciarossa a Venecia (est. 20–40 €)",
+  "afternoon": "Rialto, San Marco",
+  "night": "Regreso",
+  "transport": "Trenitalia / Italo",
+  "eat": "Cicchetti",
+  "cost": "~70 € (est.)",
+  "tip": "",
+  "links": [],
+  "tag": ""
+ },
+ {
+  "date": "2026-11-09",
+  "city": "Vilnius",
+  "flag": "🇱🇹",
+  "title": "Vuelo a Lituania",
+  "morning": "Ryanair BGY → VNO (2h30)",
+  "afternoon": "Casco antiguo de Vilnius",
+  "night": "Bares de Vilnius",
+  "transport": "Ryanair noviembre desde 26,35 €",
+  "eat": "Cepelinai, almuerzo del día 6–9 €",
+  "cost": "~60 € (est.)",
+  "tip": "Hace frío: máxima de ~4 °C.",
+  "links": [
+   "Ryanair BGY–VNO|https://www.ryanair.com/gb/en/flights/flights-from-bergamo-to-vilnius",
+   "Hostales Vilnius|https://www.hostelworld.com/blog/europe/lithuania/vilnius/"
+  ],
+  "tag": "viaje"
+ },
+ {
+  "date": "2026-11-10",
+  "city": "Trakai",
+  "flag": "🇱🇹",
+  "title": "Castillo de Trakai",
+  "morning": "Bus o tren a Trakai (~35 min, est.)",
+  "afternoon": "Castillo en el lago",
+  "night": "Užupis",
+  "transport": "Bus (est. 2–3 €)",
+  "eat": "Kibinai",
+  "cost": "~35 € (est.)",
+  "tip": "",
+  "links": [],
+  "tag": "trip"
+ },
+ {
+  "date": "2026-11-11",
+  "city": "Kaunas (opcional)",
+  "flag": "🇱🇹",
+  "title": "Kaunas o Vilnius",
+  "morning": "Tren a Kaunas (est. 1h15)",
+  "afternoon": "Casco antiguo",
+  "night": "Fiesta en Vilnius",
+  "transport": "LTG",
+  "eat": "",
+  "cost": "~40 € (est.)",
+  "tip": "",
+  "links": [],
+  "tag": ""
+ },
+ {
+  "date": "2026-11-12",
+  "city": "Riga",
+  "flag": "🇱🇻",
+  "title": "Bus a Letonia",
+  "morning": "FlixBus Vilnius → Riga (3h40–4h25)",
+  "afternoon": "Casco antiguo de Riga",
+  "night": "Bares",
+  "transport": "FlixBus desde 7,49 € · Lux Express 14,90–21 €",
+  "eat": "Mercado Central",
+  "cost": "~45 € (est.)",
+  "tip": "FlixBus incluye 7 kg de mano + 20 kg facturados gratis.",
+  "links": [
+   "Vilnius→Riga|https://lithuaniatravelguide.com/vilnius-to-riga/",
+   "Hostales Riga|https://www.hostelworld.com/hostels/europe/latvia/"
+  ],
+  "tag": "viaje"
+ },
+ {
+  "date": "2026-11-13",
+  "city": "Riga",
+  "flag": "🇱🇻",
+  "title": "Riga",
+  "morning": "Mercado Central",
+  "afternoon": "Art Nouveau",
+  "night": "Naughty Squirrel / pub crawl",
+  "transport": "A pie",
+  "eat": "",
+  "cost": "~35 € (est.)",
+  "tip": "",
+  "links": [],
+  "tag": ""
+ },
+ {
+  "date": "2026-11-14",
+  "city": "Riga",
+  "flag": "🇱🇻",
+  "title": "Riga libre",
+  "morning": "Jūrmala (playa)",
+  "afternoon": "Riga",
+  "night": "Fiesta",
+  "transport": "Tren",
+  "eat": "",
+  "cost": "~35 € (est.)",
+  "tip": "",
+  "links": [],
+  "tag": ""
+ },
+ {
+  "date": "2026-11-15",
+  "city": "Londres",
+  "flag": "🇬🇧",
+  "title": "Vuelo a Londres · Breakpoint",
+  "morning": "Ryanair RIX → STN",
+  "afternoon": "Llegada",
+  "night": "Opening de Breakpoint (17–20 h)",
+  "transport": "Ryanair desde 21,99 €",
+  "eat": "Meal deal (est.)",
+  "cost": "~80 € (est.)",
+  "tip": "Hace falta la ETA UK (verificar en gov.uk). Sin entrada: volar Riga → Madrid (~66 $).",
+  "links": [
+   "Breakpoint|https://solana.com/breakpoint/registration",
+   "Ryanair RIX–STN|https://www.ryanair.com/gb/en/flights/flights-from-riga-to-london"
+  ],
+  "tag": "evento"
+ },
+ {
+  "date": "2026-11-16",
+  "city": "Londres",
+  "flag": "🇬🇧",
+  "title": "Breakpoint · Día 2",
+  "morning": "Breakpoint 9:00",
+  "afternoon": "Breakpoint",
+  "night": "Side events",
+  "transport": "Tube",
+  "eat": "",
+  "cost": "~50 € (est.)",
+  "tip": "",
+  "links": [],
+  "tag": "evento"
+ },
+ {
+  "date": "2026-11-17",
+  "city": "Londres",
+  "flag": "🇬🇧",
+  "title": "Breakpoint · Día 3",
+  "morning": "Breakpoint 9:00",
+  "afternoon": "Breakpoint (hasta las 19:00)",
+  "night": "Fiesta de cierre",
+  "transport": "Tube",
+  "eat": "",
+  "cost": "~50 € (est.)",
+  "tip": "",
+  "links": [],
+  "tag": "evento"
+ },
+ {
+  "date": "2026-11-18",
+  "city": "Madrid",
+  "flag": "🇪🇸",
+  "title": "Vuelo a Madrid",
+  "morning": "Ryanair STN → MAD",
+  "afternoon": "Tour del Bernabéu (est. ~35 €)",
+  "night": "Tapas en La Latina",
+  "transport": "Ryanair desde 14,99 €",
+  "eat": "Bocadillo de calamares",
+  "cost": "~90 € (est.)",
+  "tip": "",
+  "links": [
+   "Ryanair LON–MAD|https://www.ryanair.com/ie/en/flights/flights-from-london-to-madrid"
+  ],
+  "tag": "viaje"
+ },
+ {
+  "date": "2026-11-19",
+  "city": "Madrid",
+  "flag": "🇪🇸",
+  "title": "Regreso a Costa Rica",
+  "morning": "Al aeropuerto (llegar a las 10:00)",
+  "afternoon": "Vuelo MAD → SJO 13:00 (Iberojet Basic, 10 kg)",
+  "night": "¡En casa!",
+  "transport": "Metro / Cercanías",
+  "eat": "",
+  "cost": "",
+  "tip": "Iberojet Basic no incluye maleta facturada: comprarla (aprox. 90–140 €).",
+  "links": [],
+  "tag": "viaje"
+ }
+]</script>
+<script>
+const DAYS=JSON.parse(document.getElementById('days-data').textContent);
+const $=s=>document.querySelector(s),W=['dom','lun','mar','mié','jue','vie','sáb'],M=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const TABS=[['dias','Días'],['presupuesto','Presupuesto'],['futbol','Fútbol'],['checklist','Checklist'],['equipaje','Equipaje']];
+$('#btabs').innerHTML=$('#tabs').innerHTML=TABS.map(([k,l])=>`<button class="tab${k=='dias'?' on':''}" data-k="${k}">${l}</button>`).join('');
+function show(k){document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on',p.id=='p-'+k));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.k==k));$('#fab').style.display=k=='dias'?'':'none';scrollTo({top:0})}
+$('#tabs').onclick=$('#btabs').onclick=e=>e.target.dataset.k&&show(e.target.dataset.k);
+const pd=s=>{const[y,m,d]=s.split('-');return new Date(+y,m-1,+d)};
+const todayISO=(()=>{const t=new Date();return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0')})();
+const TAGL={futbol:'Fútbol',fiesta:'Fiesta',evento:'Evento',trip:'Excursión',viaje:'Traslado'};
+const CN={'🇳🇱':'Países Bajos','🇧🇪':'Bélgica','🇩🇪':'Alemania','🇫🇷':'Francia','🇵🇹':'Portugal','🇪🇸':'España','🇮🇹':'Italia','🇨🇭':'Suiza','🇱🇹':'Lituania','🇱🇻':'Letonia','🇬🇧':'Reino Unido'};const cityKey=d=>CN[d.flag];
+let filter='Todos';
+const cities=['Todos',...new Set(DAYS.map(d=>d.flag+' '+cityKey(d)))];
+$('#chips').innerHTML=cities.map(c=>`<button class="chip${c=='Todos'?' on':''}">${c}</button>`).join('');
+$('#chips').onclick=e=>{if(!e.target.classList.contains('chip'))return;filter=e.target.textContent;document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c==e.target));render()};
+$('#dates').innerHTML=DAYS.map((d,i)=>{const x=pd(d.date);return `<button class="dt${d.date==todayISO?' today':''}" data-i="${i}"><small>${W[x.getDay()]}</small><b>${x.getDate()}</b><em>${d.flag}</em></button>`}).join('');
+$('#dates').onclick=e=>{const b=e.target.closest('.dt');if(b)go(+b.dataset.i)};
+function render(){$('#days').innerHTML=DAYS.map((d,i)=>{if(filter!='Todos'&&d.flag+' '+cityKey(d)!=filter)return'';const x=pd(d.date);
+return `<article class="day" id="d${i}"><div class="dh"><div class="num"><b>${x.getDate()}</b><small>${M[x.getMonth()]}</small></div><div><h3>${d.title}</h3><div class="meta">Día ${i+1}/37 · ${W[x.getDay()]} · ${d.flag} ${d.city}</div></div>${d.tag?`<span class="tag ${d.tag}">${TAGL[d.tag]}</span>`:''}</div>
+<div class="tl"><div><small>☀ Mañana</small><p>${d.morning}</p></div><div><small>◐ Tarde</small><p>${d.afternoon}</p></div><div><small>☾ Noche</small><p>${d.night}</p></div></div>
+<div class="kv">${d.transport?`<div><small>Transporte</small>${d.transport}</div>`:''}${d.eat?`<div><small>Comer</small>${d.eat}</div>`:''}${d.cost?`<div><small>Costo pp</small>${d.cost}</div>`:''}</div>
+${d.tip?`<p class="tip"><b>Tip ·</b> ${d.tip}</p>`:''}${d.links.length?`<div class="lk">${d.links.map(l=>{const[t,u]=l.split('|');return `<a href="${u}" target="_blank" rel="noopener">${t} ↗</a>`}).join('')}</div>`:''}</article>`}).join('')}
+function go(i){if(filter!='Todos'){filter='Todos';document.querySelectorAll('.chip').forEach((c,j)=>c.classList.toggle('on',j==0));render()}
+document.querySelectorAll('.dt').forEach((b,j)=>b.classList.toggle('on',j==i));$('.dt.on').scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
+const el=$('#d'+i);document.querySelectorAll('.day.hl').forEach(e=>e.classList.remove('hl'));el.classList.add('hl');const off=$('.strip').getBoundingClientRect().height+$('nav').getBoundingClientRect().height+30;scrollTo({top:el.getBoundingClientRect().top+scrollY-off,behavior:'smooth'})}
+function hoy(){let i=DAYS.findIndex(d=>d.date==todayISO);if(i<0)i=todayISO<DAYS[0].date?0:DAYS.length-1;show('dias');setTimeout(()=>go(i),50)}
+$('#hoyBtn').onclick=hoy;$('#fab').onclick=hoy;
+const MIG=['Pasaporte con más de 3 meses de vigencia después de la salida','Boleto de regreso MAD–SJO (19 nov)','Reserva Ozo Hoofddorp (14–22 oct)','Reserva Airbnb Lisboa (22 oct–2 nov)','Prueba de fondos (estados de cuenta o tarjetas)','Seguro de viaje','Itinerario impreso (este sitio en PDF)','37 días: dentro del límite de 90/180','Verificar ETIAS y ETA UK (para Londres)'];
+document.querySelectorAll('.chk').forEach(ul=>{const k=ul.dataset.k,st=JSON.parse(localStorage.getItem('chk-'+k)||'{}');ul.innerHTML=MIG.map((t,i)=>`<li><input type="checkbox" id="${k}${i}" ${st[i]?'checked':''}><label for="${k}${i}">${t}</label></li>`).join('');ul.onchange=e=>{st[e.target.id.slice(k.length)]=e.target.checked;localStorage.setItem('chk-'+k,JSON.stringify(st))}});
+const th=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=th;
+$('#theme').onclick=()=>{const n=document.documentElement.dataset.theme=='dark'?'light':'dark';document.documentElement.dataset.theme=n;localStorage.setItem('theme',n)};
+render();
+</script></body></html>
